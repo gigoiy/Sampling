@@ -4,35 +4,29 @@ This assignment explores the effects of sampling on signals in the time and freq
 ## Section 1: Plots of the Sampled Signals
 Sampled signals can be shown as: 
 
-$$
-\begin{array}{lcr} 
+<p align="left">(1)</p>
 
-y_{i}[n] = & x_{i}(nT_{s}) & (1)
+$$ y_i[n] = x_i(nT_s) $$
 
-\end{array}
-$$ 
+Where
 
-where 
+<p align="left">(2)</p>
 
-$$
-\begin{array}{lcr} 
-
-T_{s} = & 1/F_{s} & (2)
-
-\end{array}
-$$
+$$ T_s = 1/F_s $$
 
 Since the eight signals given to me to sample are just three different signals at different sampling frequencies, the three signals that were sampled are:
 
-$$
-\begin{array}{lcr}
+<p align="left">(3)</p>
 
-x_{0} = & \cos(2\pi10kHz*t) & (3) \\
-x_{1} = & \sin(2\pi10kHz*t) & (4) \\
-x_{2} = & \cos(2\pi10kHz*t+45^\circ) & (5) \\
+$$ x_0 = \cos(2\pi10kHz*t) $$
 
-\end{array}
-$$
+<p align="left">(4)</p>
+
+$$ x_1 = \sin(2\pi10kHz*t) $$
+
+<p align="left">(5)</p>
+
+$$ x_2 = \cos(2\pi10kHz*t+45^\circ) $$
 
 ![Plot of y0](plot/y0.png)
 ![Plot of y1](plot/y1.png)
@@ -60,13 +54,9 @@ The magnitude and phase spectra for signals $y_{i}[n]$ for $i \in{0, 5, 6, 7}$ a
 
 The Nyquist Sampling Theorem states
 
-$$
-\begin{array}{lcr} 
+<p align="left">(6)</p>
 
-F_{s} > & 2f_{max} & (6)
-
-\end{array}
-$$
+$$ F_s > 2f_{max} $$
 
 With the signals at a 10 kHz frequency:
 
@@ -79,56 +69,35 @@ With the signals at a 10 kHz frequency:
 
 The signal $x_{8}(t)$ is defined as:
 
-$$
-\begin{array}{lcr} 
+<p align="left">(7)</p>
 
-x_{8}(t) = & 2e^{-100t}\sin(2000t)u(t) & (7)
-
-\end{array}
-$$
+$$ x_8(t) = 2e^{-100t}\sin(2000t)u(t) $$
 
 ### Deriving the Magnitude Spectrum:
 
 We begin by using the trigometric identity $\sin\theta = \frac{e^{j\theta} - e^{-j\theta}}{2j}$
 
-$$
-\begin{array}{lcr}
+$$ \sin(2000t) = \frac{e^{j2000t} - e^{-j2000t}}{2j} $$
 
-\sin(2000t) = & \frac{e^{j2000t} - e^{-j2000t}}{2j} & (8)
-
-\end{array}
-$$
 
 So,
 
-$$
-\begin{array}{lcr}
+$$ x_8(t) = \frac{2}{2j}e^{-100t}(e^{j2000t} - e^{-j2000t})u(t) $$
 
-x_{8}(t) = & \frac{2}{2j}e^{-100t}(e^{j2000t} - e^{-j2000t})u(t) & (9) \\
-x_{8}(t) = & \frac{1}{j}(e^{-(100 - j2000)t} - e^{-(100 + j2000)t})u(t) & (10)
-
-\end{array}
-$$
+$$ x_8(t) = \frac{1}{j}(e^{-(100 - j2000)t} - e^{-(100 + j2000)t})u(t) $$
 
 The Fourier transform property of $e^{-at}u(t)$ is:
 
-$$
-\begin{array}{c}
+<p align="left">(8)</p>
 
-& \frac{1}{a + j\omega}
+$$ \frac{1}{a + j\omega} $$
 
-\end{array}
-$$
 
 So the tranformed signal is:
 
-$$
-\begin{array}{lcr}
+<p align="left">(9)</p>
 
-X_{8}(\omega) = & \frac{1}{j}(\frac{1}{100 - j(2000 - \omega)} - \frac{1}{100 + j(2000 + \omega)}) & (11)
-
-\end{array}
-$$
+$$ X_8(\omega) = \frac{1}{j}(\frac{1}{100 - j(2000 - \omega)} - \frac{1}{100 + j(2000 + \omega)}) $$
 
 ### The Plots of $X_{8}(\omega)$
 
@@ -138,15 +107,11 @@ Here we will compare the magnitude plots of an FFT-based approximation of $x_{8}
 
 I used a 1 MHz sampling rate because $f_{0}$ of the signal can be acquired by converting radians to Hertz like so:
 
-$$
-\begin{array}{lr}
+$$ \sin(\omega t) = \sin(2000t) $$
 
-\sin(\omega t) = & \sin(2000t) \\
-\omega = & 2000 \\
-f = \frac{\omega}{2\pi} = \frac{2000}{2\pi} = & 318.31 Hz
+$$ \omega = 2000 $$
 
-\end{array}
-$$
+$$ f = \frac{\omega}{2\pi} = \frac{2000}{2\pi} = 318.31 Hz $$
 
 **Why I chose the sampling frequency I did**
 
