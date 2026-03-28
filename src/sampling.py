@@ -4,34 +4,74 @@ from numpy.fft import fft, fftfreq, fftshift
 
 f0 = 10e3
 
+# Sets up the input signals as lambda functions. Using "lambda" keeps them compact, perfect for actual equations.
 x0 = lambda t: np.cos(2*np.pi*f0*t)
 x1 = lambda t: np.sin(2*np.pi*f0*t)
 x2 = lambda t: np.cos(2*np.pi*f0*t + np.deg2rad(45))
 x8 = lambda t: 2*np.exp(-100*t)*np.sin(2000*t)
 
+"""
+Function: sample_signal(x_func, Fs, duration)
+
+Parameters:
+
+x_func, function - The input signal
+Fs, float - The sampling frequency
+duration, float - The window length of the signal to be sampled. Default duration is 2e-3 seconds for faster signals
+
+Returns:
+
+n, array - The new time scale
+y, array - The new magnitude scale
+
+
+Description: Samples the input signal using equations (1) and (2)
+"""
+
 def sample_signal(x_func, Fs, duration=2e-3):
-    Ts = 1/Fs
+    Ts = 1/Fs # Using equation (2)
     n = np.arange(0, duration, Ts)
-    y = x_func(n)
+    y = x_func(n) # Using equation (1)
     return n, y
 
-def compare_fftmag_to_derived(x_func, Fs, duration=0.2):
-    x8_signal = sample_signal(x_func, Fs, duration)[1]
-    N = len(x8_signal)
+"""
+Function: compare_fftmag_to_derived(x_func, Fs, duration)
 
-    X8_fft = fftshift(fft(x8_signal))
-    omega_fft = (2*np.pi)*fftshift(fftfreq(N, 1/Fs))
+Parameters:
+
+x_func, function - The input signal
+Fs, float - The sampling frequency
+duration, float - The window length of the signal to be sampled. 
+Default duration is 0.2 seconds for slower signals (Because x8 is a slower signal).
+
+Returns: None
+
+Description: Mainly for for the input signal x8, this function takes the input signal,
+samples the signal using the sample_signal() function, computes the FFT of the signal and it's related omega,
+then computes the analytical Fourier Transform of the signal. It then generates a comparison plot between the two signals. 
+"""
+
+def compare_fftmag_to_derived(x_func, Fs, duration=0.2):
+    x8_signal = sample_signal(x_func, Fs, duration)[1] # Get only the magnitude scale of the sampled x8 signal
+    N = len(x8_signal) # Get the time scale of the sampled x8 signal
+
+    X8_fft = fftshift(fft(x8_signal)) # Compute the FFT of x8
+    omega_fft = (2*np.pi)*fftshift(fftfreq(N, 1/Fs)) # Compute omega using FFT. We'll use this between the two signals when doing computations
     
+    # Compute the analytical Fourier Transform for x8 (X8)
     term1 = 1 / (100 - 1j*(2000 - omega_fft))
     term2 = 1 / (100 + 1j*(2000 + omega_fft))
     X8_analytic = (1 / 1j) * (term1 - term2)
 
+    # Compute the magnitudes of the two signals
     X8a = np.abs(X8_analytic)
     X8f = np.abs(X8_fft)
 
+    # Normalize the two signals to a maximum magnitude of 1.0 for comparison
     X8a /= np.max(X8a)
     X8f /= np.max(X8f)
 
+    # Plot the signals and save the figure
     plt.plot(omega_fft, X8a, label="Analytic |X8(ω)|", color='blue', linewidth=3)
     plt.plot(omega_fft, X8f, label="FFT Approximation", color='green', linewidth=2)
     plt.xlim(-8000, 8000)
