@@ -7,7 +7,7 @@ Sampled signals can be shown as:
 $$
 \begin{array}{lcr} 
 
-y_{i}[n] = && x_{i}(nT_{s}) && (1)
+y_{i}[n] = & x_{i}(nT_{s}) & (1)
 
 \end{array}
 $$ 
@@ -17,7 +17,7 @@ where
 $$
 \begin{array}{lcr} 
 
-T_{s} = && 1/F_{s} && (2)
+T_{s} = & 1/F_{s} & (2)
 
 \end{array}
 $$
@@ -27,9 +27,9 @@ Since the eight signals given to me to sample are just three different signals a
 $$
 \begin{array}{lcr}
 
-x_{0} = && \cos(2\pi10kHz*t) && (3) \\
-x_{1} = && \sin(2\pi10kHz*t) && (4) \\
-x_{2} = && \cos(2\pi10kHz*t+45\degree) && (5) \\
+x_{0} = & \cos(2\pi10kHz*t) & (3) \\
+x_{1} = & \sin(2\pi10kHz*t) & (4) \\
+x_{2} = & \cos(2\pi10kHz*t+45^\circ) & (5) \\
 
 \end{array}
 $$
@@ -63,7 +63,7 @@ The Nyquist Sampling Theorem states
 $$
 \begin{array}{lcr} 
 
-F_{s} > && 2f_{max} && (6)
+F_{s} > & 2f_{max} & (6)
 
 \end{array}
 $$
@@ -82,7 +82,7 @@ The signal $x_{8}(t)$ is defined as:
 $$
 \begin{array}{lcr} 
 
-x_{8}(t) = && 2e^{-100t}\sin(2000t)u(t) && (7)
+x_{8}(t) = & 2e^{-100t}\sin(2000t)u(t) & (7)
 
 \end{array}
 $$
@@ -94,7 +94,7 @@ We begin by using the trigometric identity $\sin\theta = \frac{e^{j\theta} - e^{
 $$
 \begin{array}{lcr}
 
-\sin(2000t) = && \frac{e^{j2000t} - e^{-j2000t}}{2j} && (8)
+\sin(2000t) = & \frac{e^{j2000t} - e^{-j2000t}}{2j} & (8)
 
 \end{array}
 $$
@@ -104,8 +104,8 @@ So,
 $$
 \begin{array}{lcr}
 
-x_{8}(t) = && \frac{2}{2j}e^{-100t}(e^{j2000t} - e^{-j2000t})u(t) && (9) \\
-x_{8}(t) = && \frac{1}{j}(e^{-(100 - j2000)t} - e^{-(100 + j2000)t})u(t) && (10)
+x_{8}(t) = & \frac{2}{2j}e^{-100t}(e^{j2000t} - e^{-j2000t})u(t) & (9) \\
+x_{8}(t) = & \frac{1}{j}(e^{-(100 - j2000)t} - e^{-(100 + j2000)t})u(t) & (10)
 
 \end{array}
 $$
@@ -113,9 +113,9 @@ $$
 The Fourier transform property of $e^{-at}u(t)$ is:
 
 $$
-\begin{array}{lcr}
+\begin{array}{c}
 
-\frac{1}{a + j\omega}
+& \frac{1}{a + j\omega}
 
 \end{array}
 $$
@@ -125,7 +125,7 @@ So the tranformed signal is:
 $$
 \begin{array}{lcr}
 
-X_{8}(\omega) = && \frac{1}{j}(\frac{1}{100 - j(2000 - \omega)} - \frac{1}{100 + j(2000 + \omega)}) && (11)
+X_{8}(\omega) = & \frac{1}{j}(\frac{1}{100 - j(2000 - \omega)} - \frac{1}{100 + j(2000 + \omega)}) & (11)
 
 \end{array}
 $$
@@ -139,11 +139,11 @@ Here we will compare the magnitude plots of an FFT-based approximation of $x_{8}
 I used a 1 MHz sampling rate because $f_{0}$ of the signal can be acquired by converting radians to Hertz like so:
 
 $$
-\begin{array}{lcr}
+\begin{array}{lr}
 
-\sin(\omega t) = && \sin(2000t) \\
-\omega = && 2000 \\
-f = \frac{\omega}{2\pi} = \frac{2000}{2\pi} = && 318.31 Hz
+\sin(\omega t) = & \sin(2000t) \\
+\omega = & 2000 \\
+f = \frac{\omega}{2\pi} = \frac{2000}{2\pi} = & 318.31 Hz
 
 \end{array}
 $$
